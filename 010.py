@@ -11,7 +11,7 @@ while num < 2000000:
 		if num % counter == 0:
 			num = num/counter
 			key = 1
-			break;
+			break
 		else:
 			counter += 1
 
