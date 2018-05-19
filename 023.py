@@ -4,37 +4,47 @@ start_time = time.time()
 def isAbd(x):
 	n = int(x/2) + 1
 	i = 2
-	sum = 1
+	result = 1
 
 	while i < n:
 		if x%i == 0:
-			sum += i
+			result += i
 		i += 1
-	return sum > x
+	return result > x
 
 abundant = []
 
-f = True
-check = sum = 0
+result = 0
 i = 12
-
-while i <= 28123:
+limit = 28123
+while i <= limit:
 	if isAbd(i):
 		abundant.append(i)
 
-	#print "checking %d"%(i)
-	for a in abundant:
-		#check = i - a
-		if (i-a) in abundant:
-			f = False
-			#print "flase and quiting", check
-			break
+	# for a in abundant:
+	# 	#check = i - a
+	# 	if a<i and (i-a) in abundant:
+	# 		break
+	# else:
+	# 	result += i
 
-	if f:
-		sum += i
-
-	f = True
 	i += 1
 
-print sum
+canBeWrittenAsAbd = []
+
+for i in range(limit):
+	canBeWrittenAsAbd.append(False)
+
+for i in range(len(abundant)):
+	for j in range(i, len(abundant)):
+		if abundant[i] + abundant[j] < limit:
+			canBeWrittenAsAbd[abundant[i] + abundant[j]] = True
+		else:
+			break
+
+for i in range(len(canBeWrittenAsAbd)):
+	if not canBeWrittenAsAbd[i]:
+		result += i
+
+print(result)
 print("--- %s seconds ---" % (time.time() - start_time))
